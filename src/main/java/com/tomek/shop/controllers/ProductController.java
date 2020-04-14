@@ -37,6 +37,11 @@ public class ProductController {
         return productRepository.findById(result.getId());
     }
 
+    @PostMapping("/many")
+    public ArrayList<Product> addProducts(@RequestBody ArrayList<Product> products) {
+        return (ArrayList<Product>) productRepository.saveAll(products);
+    }
+
     @DeleteMapping
     public ArrayList<Product> deleteProducts() {
         productRepository.deleteAll();
