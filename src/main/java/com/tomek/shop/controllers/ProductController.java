@@ -22,9 +22,9 @@ public class ProductController {
 
     @PostMapping
     @ResponseBody
-    public Optional<Product> addProduct(@RequestParam("name") String name) {
-        Product product = productService.save(new Product(name));
-        return productService.findById(product.getId());
+    public Optional<Product> addProduct(@RequestBody Product product) {
+        Product result = productService.save(product);
+        return productService.findById(result.getId());
     }
 
 }
