@@ -17,7 +17,7 @@ public class ProductController {
 
     @GetMapping
     public ArrayList<Product> getProducts() {
-        return new ArrayList<>(productService.findAll());
+        return (ArrayList<Product>) productService.findAll();
     }
 
     @PostMapping
@@ -25,6 +25,12 @@ public class ProductController {
     public Optional<Product> addProduct(@RequestBody Product product) {
         Product result = productService.save(product);
         return productService.findById(result.getId());
+    }
+
+    @DeleteMapping
+    public ArrayList<Product> deleteProducts() {
+        productService.deleteAll();
+        return (ArrayList<Product>) productService.findAll();
     }
 
 }
