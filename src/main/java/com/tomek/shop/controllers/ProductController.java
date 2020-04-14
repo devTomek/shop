@@ -20,8 +20,12 @@ public class ProductController {
         return (ArrayList<Product>) productService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Product> getProduct(@PathVariable Long id) {
+        return productService.findById(id);
+    }
+
     @PostMapping
-    @ResponseBody
     public Optional<Product> addProduct(@RequestBody Product product) {
         Product result = productService.save(product);
         return productService.findById(result.getId());
