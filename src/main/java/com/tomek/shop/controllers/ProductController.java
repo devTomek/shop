@@ -1,7 +1,7 @@
 package com.tomek.shop.controllers;
 
 import com.tomek.shop.models.Product;
-import com.tomek.shop.services.ProductService;
+import com.tomek.shop.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,33 +14,33 @@ import java.util.Set;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    ProductRepository productRepository;
 
     @GetMapping
     public ArrayList<Product> getProducts() {
-        return (ArrayList<Product>) productService.findAll();
+        return (ArrayList<Product>) productRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public Optional<Product> getProduct(@PathVariable Long id) {
-        return productService.findById(id);
+        return productRepository.findById(id);
     }
 
     @GetMapping("/{ids}")
     public ArrayList<Product> getProductsByIds(@RequestParam Set<Long> ids) {
-        return (ArrayList<Product>) productService.findAllById(ids);
+        return (ArrayList<Product>) productRepository.findAllById(ids);
     }
 
     @PostMapping
     public Optional<Product> addProduct(@RequestBody Product product) {
-        Product result = productService.save(product);
-        return productService.findById(result.getId());
+        Product result = productRepository.save(product);
+        return productRepository.findById(result.getId());
     }
 
     @DeleteMapping
     public ArrayList<Product> deleteProducts() {
-        productService.deleteAll();
-        return (ArrayList<Product>) productService.findAll();
+        productRepository.deleteAll();
+        return (ArrayList<Product>) productRepository.findAll();
     }
 
 }
