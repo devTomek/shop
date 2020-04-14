@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/product")
@@ -23,6 +24,11 @@ public class ProductController {
     @GetMapping("/{id}")
     public Optional<Product> getProduct(@PathVariable Long id) {
         return productService.findById(id);
+    }
+
+    @GetMapping("/{ids}")
+    public ArrayList<Product> getProductsByIds(@RequestParam Set<Long> ids) {
+        return (ArrayList<Product>) productService.findAllById(ids);
     }
 
     @PostMapping
