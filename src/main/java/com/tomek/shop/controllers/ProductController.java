@@ -6,46 +6,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("product")
 public class ProductController {
 
     @Autowired
     ProductRepository productRepository;
 
     @GetMapping
-    public ArrayList<Product> getProducts() {
-        return (ArrayList<Product>) productRepository.findAll();
+    public List<Product> getProducts() {
+        return productRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Optional<Product> getProduct(@PathVariable Long id) {
         return productRepository.findById(id);
     }
 
-    @GetMapping("/{ids}")
-    public ArrayList<Product> getProductsByIds(@RequestParam Set<Long> ids) {
-        return (ArrayList<Product>) productRepository.findAllById(ids);
+    @GetMapping("/many/{ids}")
+    public List<Product> getProductsByIds(@PathVariable Set<Long> ids) {
+        return productRepository.findAllById(ids);
     }
 
     @PostMapping
-    public Optional<Product> addProduct(@RequestBody Product product) {
-        Product result = productRepository.save(product);
-        return productRepository.findById(result.getId());
+    public Product addProduct(@RequestBody Product product) {
+        productRepository.save(product);
+        return product;
     }
 
     @PostMapping("/many")
-    public ArrayList<Product> addProducts(@RequestBody ArrayList<Product> products) {
-        return (ArrayList<Product>) productRepository.saveAll(products);
+    public List<Product> addProducts(@RequestBody List<Product> products) {
+        productRepository.saveAll(products);
+        return products;
+    }
+
+    @DeleteMapping("{id}")
+    public Long deleteProduct(@PathVariable Long id) {
+        productRepository.deleteById(id);
+        return id;
+    }
+
+    @DeleteMapping("many/{ids}")
+    public Set<Long> deleteProductsById(@PathVariable Set<Long> ids) {
+        productRepository.deleteAll(productRepository.findAllById(ids));
+        return ids;
     }
 
     @DeleteMapping
     public ArrayList<Product> deleteProducts() {
         productRepository.deleteAll();
-        return (ArrayList<Product>) productRepository.findAll();
+        return new ArrayList<>();
     }
 
 }
