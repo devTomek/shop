@@ -1,0 +1,8 @@
+version: "3"
+services:
+  database:
+    container_name: OracleDatabase
+    image: truevoly/oracle-12c
+    ports:
+      - 8090:8080
+      - 1521:1521
