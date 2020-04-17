@@ -19,6 +19,8 @@
 
 * start database with: `docker-compose up`
 
-* create user and grant permissions like in `database.sql` 
+* create user and grant permissions like in `database.sql`
+
+* copy `./src/main/resources/application.properties` into `./config/application.properties` and fill `username` and `password`
 
 * start application with maven / IntelliJ
