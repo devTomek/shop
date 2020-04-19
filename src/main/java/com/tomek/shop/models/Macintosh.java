@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Product {
+public class Macintosh {
     @Id
     @GeneratedValue
     @NotNull
@@ -15,10 +15,10 @@ public class Product {
     @NotNull
     String name;
 
-    public Product() {
+    public Macintosh() {
     }
 
-    public Product(String name) {
+    public Macintosh(String name) {
         this.name = name;
     }
 
